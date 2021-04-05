@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+        // Declaring a constant value here //
+        // This code only works for AMEX cards (17 digits) //
+        
+#define NUMBER 17
+
+int main(int argc, char *argv[]) 
+{
+    int num; 
+    
+    int *card_number = (int *) malloc(sizeof(int) * NUMBER);
+
+    for (int i = 0; i < NUMBER; i++)
+    {
+        printf("Enter AMEX Card number %d:", i);
+        scanf("%d", &card_number[i]);
+    }
+        // Very basic, lenghty and--if I dare say--lazy venue to store the values of array card_number into variable num //
+    
+    num = (card_number[15] * 2) + (card_number[13] * 2) + (card_number[11] * 2) + (card_number[9] * 2) + (card_number[7] * 2) + 
+          (card_number[5] * 2) + (card_number[3] * 2) + (card_number[1] * 2) + card_number[16] + card_number[14] + 
+          card_number[12] + card_number[10] + card_number[8] + card_number[6] + card_number[4] + card_number[2];
+
+    if (num % 10 != 0)
+    
+    {
+        printf("Invalid Card\n");
+    }
+    
+    else
+    
+    {
+        printf("This AMEX card is valid\n");
+    }
+    
+free(card_number);
+    
+    return 0;
+}
