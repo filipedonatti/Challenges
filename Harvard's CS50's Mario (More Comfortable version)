@@ -1,0 +1,65 @@
+#include <cs50.h>
+#include <stdio.h>
+
+
+// Super duper Mario pyramid--more comfortable version //
+
+
+int main(void)
+
+        // Stating the height (h) variable //
+
+{
+    int h;
+    
+    do
+
+    {
+        // Prompt user for the value of Height (h) //
+
+        h = get_int("Height: ");
+
+
+    }       // Conditions //
+
+    while (h < 1 || h > 8);
+
+            // Right aligned pyrmid //
+            
+    for (int i = 0; i < h; i++)
+    {
+        for (int k = 0; k < h; k++)
+
+        {
+            if (i + k >= h - 1)
+
+                // Hash
+            {
+                printf("#");
+            }
+
+
+            else
+
+                // Blank
+            {
+                printf(" ");
+            }
+            
+        } 
+        printf("  ");
+        
+        // Left aligned pyramid loop //
+        
+        for (int k = 0; k < h; k++)
+        
+            if (i + k >= h - 1)
+
+                // Hash
+            {
+                printf("#");
+            }
+            
+        printf("\n");
+    }
+}
