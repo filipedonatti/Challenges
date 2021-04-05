@@ -1,0 +1,105 @@
+
+//Substitution problem proposed in Harvard's CS50 course (problem set 2)
+
+#include <stdio.h>
+#include <cs50.h>
+#include <string.h>
+#include <ctype.h>
+
+// This program must be executed by implmenting two arguments in the command line //
+// Usage: ./substitution (key here) //
+// (key here) is only permissable as a permutation of letters from the modern English/Latin alphabet with no repetitions. //
+
+// This function should conform the program to the restrictions defined in the problem's argument //
+        
+bool validate(char *key);
+
+int main(int argc, char *argv[])
+{
+    if (argc == 2)
+    {
+        char *key = argv[1];
+        
+        if (validate(key) == true)
+        {
+            char *plaintext = get_string("plaintext: ");
+            int ccount = strlen(plaintext);
+            char ciphertext[ccount];
+            char *alphabet = "abcdefghijklmnopqrstuvwxyz";
+            for (int i = 0; i < ccount; i++)
+            {
+                if (isupper(plaintext[i]) != 0)
+                {
+                    for (int j = 0; j < 26; j++)
+                    {
+                        if (alphabet[j] == tolower(plaintext[i]))
+                        {
+                            ciphertext[i] = toupper(key[j]);
+                            
+                            break;
+                        }
+                    }
+                }
+                else if (islower(plaintext[i]) != 0)
+                {
+                    for (int j = 0; j < 26; j++)
+                    {
+                        if (alphabet[j] == plaintext[i])
+                        {
+                            ciphertext[i] = tolower(key[j]);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ciphertext[i] = plaintext[i];
+                }
+            }
+            printf("Ciphertext: %s\n", ciphertext);
+            return 0;
+        }
+        else
+        {
+            printf("\nThe key must--only--contain each letter of the modern English/Latin alphabet. Make sure to not type each letter more than once.\n");
+            printf("Usage: ./substitution (key) \n");
+            return 1;
+        }
+    }
+    else
+    {
+        printf("\nProvide a key.\n");
+        return 1;
+    }
+}
+
+bool validate(char *key)
+{
+    int matches = 0;
+    if (strlen(key) == 26)
+    {
+        for (char c = 'a'; c <= 'z'; c++)
+        {
+            for (int i = 0; i < 26; i++)
+            {
+                if (tolower(key[i]) == c)
+                {
+                    matches++;
+                    break;
+                }
+            }
+        }
+        if (matches == 26)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
